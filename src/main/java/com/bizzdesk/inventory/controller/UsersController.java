@@ -45,8 +45,8 @@ public class UsersController {
 	@RequestMapping(value = "/registration", method = RequestMethod.POST)
 	@ResponseBody
 //	@PreAuthorize("hasAuthority('SUPER_ADMIN')")
-//	public ResponseEntity<?> create(@ApiParam(value="Authorization", required=true) @RequestHeader String Authorization, @RequestBody SignUpRequest request){
-	public ServerResponse create(@ApiParam(value="Authorization", required=true) @RequestHeader String Authorization, @RequestBody SignUpRequest request){
+	public ResponseEntity<?> create(@ApiParam(value="Authorization", required=true) @RequestHeader String Authorization, @RequestBody SignUpRequest request){
+//	public ServerResponse create(@ApiParam(value="Authorization", required=true) @RequestHeader String Authorization, @RequestBody SignUpRequest request){
 	
 	//	logger.info("Starting to create user account at controller");
 		
@@ -64,8 +64,8 @@ public class UsersController {
             
 		}
 		
-	//	return new ResponseEntity<ServerResponse>(response, responseHeaders, ServerResponse.getStatus(response.getStatus()));
-		return response;
+		return new ResponseEntity<ServerResponse>(response, responseHeaders, ServerResponse.getStatus(response.getStatus()));
+	//	return response;
 	}
 	
 	

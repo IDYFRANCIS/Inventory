@@ -38,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Users users = usersService.findByEmail(emailAddress);
         
         if(users == null){
-        	throw new UsernameNotFoundException("user not exists");
+        	throw new UsernameNotFoundException("user does not exists");
         }
         
         logger.info("DONE WITH AUTHENTICATION AT USER DETAILS SERVICE" + users.getLastName());
