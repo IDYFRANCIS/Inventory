@@ -1,11 +1,8 @@
 package com.bizzdesk.inventory.repository;
 
-import java.util.Collection;
-
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.bizzdesk.inventory.model.Stock;
 import com.bizzdesk.inventory.model.Users;
 
 

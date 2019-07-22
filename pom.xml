@@ -121,11 +121,6 @@
     </dependency>
     <!--Utility-->
     <dependency>
-        <groupId>ma.glasnost.orika</groupId>
-        <artifactId>orika-core</artifactId>
-        <version>1.5.2</version>
-    </dependency>
-    <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-dbcp2</artifactId>
         <version>2.1.1</version>
