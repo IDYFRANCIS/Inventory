@@ -73,10 +73,10 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	@Override
-	public Users findById(long id) {
+	public Users findById(long usersId) {
 		
 		try {
-			return usersRepository.findById(id);
+			return usersRepository.findByUsersId(usersId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -592,11 +592,11 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	@Override
-	public ServerResponse delete(long id) {
+	public ServerResponse delete(long usersId) {
 	
       ServerResponse response = new ServerResponse();
 		
-		if (id == 0) {
+		if (usersId == 0) {
 			response.setData("code can not be null");
 			response.setStatus(ServerResponseStatus.FAILED);
 			response.setSuccess(false);
@@ -606,7 +606,7 @@ public class UsersServiceImpl implements UsersService{
 		
 		try {
 			
-			Users user = usersRepository.findById(id);
+			Users user = usersRepository.findByUsersId(usersId);
 			
 			
 			if (user == null) {

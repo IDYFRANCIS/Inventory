@@ -2,14 +2,20 @@ package com.bizzdesk.inventory.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,11 +29,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Users implements Serializable{
 	
 	
-	@JsonIgnore
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "users_id", nullable = false, unique = true)
-	private long id;
+	private long usersId;
 	
 	@Column(name = "firstname")
 	private String firstName;
@@ -45,6 +51,9 @@ public class Users implements Serializable{
 	@Column(name = "password")
 	private String password;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy = "users", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Stock> stock;
 	
 	@ManyToOne
 	@JoinColumn(name = "role_id")
@@ -69,13 +78,12 @@ public class Users implements Serializable{
 
 	
 	
-	
-	public long getId() {
-		return id;
+	public long getUsersId() {
+		return usersId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setUsersId(long usersId) {
+		this.usersId = usersId;
 	}
 
 	public String getFirstName() {
@@ -108,6 +116,22 @@ public class Users implements Serializable{
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public List<Stock> getStock() {
+		return stock;
+	}
+
+	public void setStock(List<Stock> stock) {
+		this.stock = stock;
 	}
 
 	public Role getRole() {
@@ -149,16 +173,7 @@ public class Users implements Serializable{
 	public void setPasswordResetCode(String passwordResetCode) {
 		this.passwordResetCode = passwordResetCode;
 	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	
-		
+
 	
 }

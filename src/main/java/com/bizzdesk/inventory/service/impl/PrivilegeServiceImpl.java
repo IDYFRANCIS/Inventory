@@ -33,6 +33,19 @@ public class PrivilegeServiceImpl implements PrivilegeService{
 		
 		return null;
 	}
+	
+	
+	@Override
+	public Collection<Privilege> findAll() {
+		
+		try {
+			privilegeRepository.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 
 	@Override
 	public Privilege findByName(String name) {
@@ -46,7 +59,6 @@ public class PrivilegeServiceImpl implements PrivilegeService{
 
 		return null;
 	}
-	
 	
 
 	@Override
@@ -156,11 +168,6 @@ public class PrivilegeServiceImpl implements PrivilegeService{
 		return response;
 	}
 
-	@Override
-	public Collection<Privilege> findAllByRoles(Role role) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 
 }

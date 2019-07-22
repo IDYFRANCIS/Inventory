@@ -20,7 +20,7 @@ public interface UsersService {
 	
 	public Collection<Users> findAll();
 	
-	public Users findById(long id);
+	public Users findById(long usersId);
 	
 	public Users findByEmail(String emailAddress);
 	
@@ -44,7 +44,7 @@ public interface UsersService {
 	
 	public ServerResponse viewAll();
 	
-	public ServerResponse delete(long id);
+	public ServerResponse delete(long usersId);
 	
 
 }

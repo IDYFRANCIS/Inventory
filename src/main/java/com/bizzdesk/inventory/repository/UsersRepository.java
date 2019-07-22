@@ -1,15 +1,18 @@
 package com.bizzdesk.inventory.repository;
 
+import java.util.Collection;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import com.bizzdesk.inventory.model.Stock;
 import com.bizzdesk.inventory.model.Users;
 
 
 @Repository
 public interface UsersRepository extends CrudRepository<Users, Long>{
 	
-	public Users findById(long id);
+	public Users findByUsersId(long usersId);
 
 	public Users findByEmailAddress(String emailAddress);
 	
@@ -21,5 +24,5 @@ public interface UsersRepository extends CrudRepository<Users, Long>{
 	
 	public Users findByPasswordResetCode(String passwordResetCode);
 	
-
+	
 }

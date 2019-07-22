@@ -26,6 +26,8 @@ public interface PrivilegeService {
 	    
 	    public ServerResponse getPrivilegesByRole(String name);
 
-	    public Collection<Privilege> findAllByRoles(Role role);
+	    public Collection<Privilege> findAll();
+	    
+	 
 
 }

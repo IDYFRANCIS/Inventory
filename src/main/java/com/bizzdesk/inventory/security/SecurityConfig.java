@@ -39,13 +39,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+    
     @Bean
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
-
+    
     @Bean
     protected ClientCredentialsTokenEndpointFilter endpointFilter() throws Exception {
         ClientCredentialsTokenEndpointFilter tokenFilter = new ClientCredentialsTokenEndpointFilter("/*");
@@ -53,13 +53,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         tokenFilter.afterPropertiesSet();
         return tokenFilter;
     }
-
+     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService)
             .passwordEncoder(bCryptPasswordEncoder());
     }
-
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement()
@@ -72,14 +72,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .disable();
 
     }
-
+    
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
         converter.setSigningKey(SIGNING_KEY);
         return converter;
     }
-
+     
     @Bean
     public TokenStore tokenStore() {
         return new JwtTokenStore(accessTokenConverter());
