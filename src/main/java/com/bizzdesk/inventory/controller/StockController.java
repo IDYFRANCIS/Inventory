@@ -22,9 +22,11 @@ import io.swagger.annotations.ApiOperation;
 
 
 
-@Controller
-@RequestMapping(value = "/stock", produces = "application/json")
+
+
 @Api(tags = "Stock Management", description = "Endpoint")
+@RequestMapping(value = "/stock", produces = "application/json")
+@Controller
 public class StockController {
 	
 	@Autowired

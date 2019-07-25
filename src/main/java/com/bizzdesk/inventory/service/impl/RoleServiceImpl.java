@@ -14,8 +14,8 @@ import com.bizzdesk.inventory.repository.RoleRepository;
 import com.bizzdesk.inventory.service.RoleService;
 
 
-@Service
 @Transactional
+@Service
 public class RoleServiceImpl implements RoleService{
 	
 	@Autowired

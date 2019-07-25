@@ -14,8 +14,9 @@ import com.bizzdesk.inventory.model.Role;
 import com.bizzdesk.inventory.repository.PrivilegeRepository;
 import com.bizzdesk.inventory.service.PrivilegeService;
 
-@Service
+
 @Transactional
+@Service
 public class PrivilegeServiceImpl implements PrivilegeService{
 	
 	@Autowired

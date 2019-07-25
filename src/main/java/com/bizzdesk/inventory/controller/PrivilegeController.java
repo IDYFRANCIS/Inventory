@@ -17,9 +17,11 @@ import io.swagger.annotations.ApiOperation;
 
 
 
-@Controller
-@RequestMapping(value = "/privilege", produces = "application/json")
+
+
 @Api(tags = "Privilege Management", description = "Endpoint")
+@RequestMapping(value = "/privilege", produces = "application/json")
+@Controller
 public class PrivilegeController {
 
 	@Autowired

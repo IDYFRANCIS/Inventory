@@ -26,9 +26,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@Controller
-@RequestMapping(value = "/user", produces = "application/json")
+
+
 @Api(tags = "User Account Management", description = "Endpoint")
+@RequestMapping(value = "/user", produces = "application/json")
+@Controller
 public class UsersController {
 
 	@Autowired

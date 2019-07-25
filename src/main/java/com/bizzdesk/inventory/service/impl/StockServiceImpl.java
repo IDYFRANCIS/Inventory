@@ -18,8 +18,8 @@ import com.bizzdesk.inventory.repository.UsersRepository;
 import com.bizzdesk.inventory.service.StockService;
 
 
-@Service
 @Transactional
+@Service
 public class StockServiceImpl implements StockService{
 
 	@Autowired
@@ -31,7 +31,7 @@ public class StockServiceImpl implements StockService{
 	
 	
 	@Override
-	public Stock findById(String stockId) {
+	public Stock findByStockId(String stockId) {
 		
 		try {
 			return stockRepo.findByStockId(stockId);

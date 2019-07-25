@@ -35,13 +35,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
     
-    @Bean
     @Override
+    @Bean
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
@@ -84,9 +85,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public TokenStore tokenStore() {
         return new JwtTokenStore(accessTokenConverter());
     }
-
-    @Bean
+    
     @Primary
+    @Bean    
     public DefaultTokenServices tokenServices() {
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore());

@@ -22,8 +22,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-@Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
+@Component
 public class SimpleCORSFilter implements Filter {
 
     private static Logger logger = LogManager.getLogger(SimpleCORSFilter.class);

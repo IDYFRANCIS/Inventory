@@ -28,9 +28,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UsersService usersService;
 
     private static Logger logger = LogManager.getLogger(UserDetailsServiceImpl.class);
-
-    @Override
+    
     @Transactional(readOnly = true)
+    @Override
     public UserDetails loadUserByUsername(String emailAddress) throws UsernameNotFoundException {
 
         logger.info("NOW STARTING AUTHENTICATION AT USER DETAILS SERVICE");

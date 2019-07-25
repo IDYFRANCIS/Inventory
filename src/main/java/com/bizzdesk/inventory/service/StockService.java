@@ -15,7 +15,7 @@ public interface StockService {
 	
 	public Collection<Stock> findAll();
 	
-	public Stock findById(String stockId);
+	public Stock findByStockId(String stockId);
 	
 	ServerResponse create(StockDto request); 
 	

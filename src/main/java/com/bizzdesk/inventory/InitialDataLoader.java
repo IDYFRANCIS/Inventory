@@ -25,8 +25,8 @@ import com.bizzdesk.inventory.service.RoleService;
 import com.bizzdesk.inventory.service.UsersService;
 
 
-@Component
 @Transactional
+@Component
 public class InitialDataLoader  implements ApplicationListener<ContextRefreshedEvent> {
 	
 	@Autowired
