@@ -247,7 +247,7 @@ public class UsersController {
                             *****************************************/
 	
 	@ApiOperation(value = "Update a user account", response = ServerResponse.class)
-	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update-user-account", method = RequestMethod.PUT)
 	@ResponseBody
 //	@PreAuthorize("hasAuthority('UPDATE')")
 	public ResponseEntity<?> update(@RequestHeader("Authorization") String authorization, @RequestBody UpdateUserRequestDto request){

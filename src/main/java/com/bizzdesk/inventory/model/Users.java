@@ -28,8 +28,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "users")
 public class Users implements Serializable{
 	
-	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "users_id", nullable = false, unique = true)

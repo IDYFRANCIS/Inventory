@@ -14,9 +14,11 @@ public interface StockRepository extends CrudRepository<Stock, Long>{
 	
 	Stock findByStockId(String stockId);
 	
-	Stock findByStockLocation(String stockLocation);
+	Stock findByBrandName(String brandName);
 	
 	Stock findByStockName(String stockName);
+	
+	Stock findByModelType(String modelType);
 	
 	Collection<Stock> findByusers_UsersId(long usersId);
 	

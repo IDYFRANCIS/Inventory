@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.stereotype.Service;
 
+import com.bizzdesk.inventory.dto.CategoryDto;
 import com.bizzdesk.inventory.dto.ServerResponse;
 import com.bizzdesk.inventory.dto.StockDto;
 import com.bizzdesk.inventory.dto.UpdateStockDto;
@@ -17,18 +18,18 @@ public interface StockService {
 	
 	public Stock findByStockId(String stockId);
 	
+	public Stock findByBrandName(String brandName);
+	
+	public Stock findByModelType(String modelType);
+	
 	ServerResponse create(StockDto request); 
 	
 	ServerResponse update(String stockId, UpdateStockDto request);
 	
-	ServerResponse assignStockToUser(String stockId, long usersId);
+	ServerResponse assignStockToUser(String stockId, Long usersId);
 	
 	ServerResponse getStock(String stockId);
 	
 	ServerResponse viewAll();
-	
-	
-
-//	ServerResponse update(String stockId, StockDto request);
 
 }

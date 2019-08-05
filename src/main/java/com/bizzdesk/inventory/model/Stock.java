@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @SuppressWarnings("serial")
 @Entity
-@Table
+@Table(name = "stock")
 public class Stock implements Serializable{
 	
 	
@@ -42,10 +42,18 @@ public class Stock implements Serializable{
 	@JsonIgnore
 	@Column(name = "date_created", nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
+	private Date dateCreated;
+	
+	@JsonIgnore
+	@Column(name = "date_assigned", nullable = false, insertable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(TemporalType.TIMESTAMP)
 	private Date dateAssigned;
 	
-	@Column(name = "stock_location")
-	private String stockLocation;
+	@Column(name = "brand_name")
+	private String brandName;;
+	
+	@Column(name = "model_type")
+	private String modelType;
 
 	@Column(name = "stock_name", nullable = false)
 	private String stockName;
@@ -54,6 +62,11 @@ public class Stock implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "users_id")
 	private Users users;
+
+    @JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private StockCategory categoryName;
 
 	
 	
@@ -65,6 +78,14 @@ public class Stock implements Serializable{
 		this.stockId = stockId;
 	}
 
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
 	public Date getDateAssigned() {
 		return dateAssigned;
 	}
@@ -73,12 +94,20 @@ public class Stock implements Serializable{
 		this.dateAssigned = dateAssigned;
 	}
 
-	public String getStockLocation() {
-		return stockLocation;
+	public String getBrandName() {
+		return brandName;
 	}
 
-	public void setStockLocation(String stockLocation) {
-		this.stockLocation = stockLocation;
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public String getModelType() {
+		return modelType;
+	}
+
+	public void setModelType(String modelType) {
+		this.modelType = modelType;
 	}
 
 	public String getStockName() {
@@ -97,8 +126,13 @@ public class Stock implements Serializable{
 		this.users = users;
 	}
 
-	
-	
-	
+	public StockCategory getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(StockCategory categoryName) {
+		this.categoryName = categoryName;
+	}
+
 	
 }

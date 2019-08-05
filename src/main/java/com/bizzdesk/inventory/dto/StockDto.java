@@ -4,22 +4,45 @@ public class StockDto {
 
 	private String stockName;
 
-	private String stockLocation;
+	private String brandName;
 		
+	private String modelType;
+	
+	private String categoryId;
+
 	
 	public String getStockName() {
 		return stockName;
 	}
+
 	public void setStockName(String stockName) {
 		this.stockName = stockName;
 	}
-	
-	public String getStockLocation() {
-		return stockLocation;
-	}
-	public void setStockLocation(String stockLocation) {
-		this.stockLocation = stockLocation;
-	}
-	
 
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public String getModelType() {
+		return modelType;
+	}
+
+	public void setModelType(String modelType) {
+		this.modelType = modelType;
+	}
+
+	public String getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	
+	
+	
 }

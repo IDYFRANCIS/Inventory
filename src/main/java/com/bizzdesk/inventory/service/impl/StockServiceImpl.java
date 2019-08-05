@@ -12,7 +12,9 @@ import com.bizzdesk.inventory.dto.ServerResponse;
 import com.bizzdesk.inventory.dto.StockDto;
 import com.bizzdesk.inventory.dto.UpdateStockDto;
 import com.bizzdesk.inventory.model.Stock;
+import com.bizzdesk.inventory.model.StockCategory;
 import com.bizzdesk.inventory.model.Users;
+import com.bizzdesk.inventory.repository.CategoryRepository;
 import com.bizzdesk.inventory.repository.StockRepository;
 import com.bizzdesk.inventory.repository.UsersRepository;
 import com.bizzdesk.inventory.service.StockService;
@@ -28,6 +30,8 @@ public class StockServiceImpl implements StockService{
 	@Autowired
 	StockRepository stockRepo;
 	
+	@Autowired
+	CategoryRepository categoryRepo;
 	
 	
 	@Override
@@ -60,16 +64,56 @@ public class StockServiceImpl implements StockService{
 	}
 
 	
+	@Override
+	public Stock findByBrandName(String brandName) {
+		
+		try {
+			return stockRepo.findByBrandName(brandName);
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		return null;
+	}
+
+	
+	@Override
+	public Stock findByModelType(String modelType) {
+		
+		try {
+			return stockRepo.findByModelType(modelType);
+		} catch(Exception e) {
+			
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	
 	@Override
 	public ServerResponse create(StockDto request) {
 		
 		ServerResponse response = new ServerResponse();
 		
-		Stock stock = null;
+       Stock stock = null;
 		
-		String stockName = request.getStockName() != null ? request.getStockName() : request.getStockName();
-		String stockLocation = request.getStockLocation() != null ? request.getStockLocation() : request.getStockLocation();
+        String categoryId = request.getCategoryId() != null ? request.getCategoryId() : request.getCategoryId()
+;		String stockName = request.getStockName() != null ? request.getStockName() : request.getStockName();
+		String brandName = request.getBrandName() != null ? request.getBrandName() : request.getBrandName();
+		String modelType = request.getModelType() != null ? request.getModelType() : request.getModelType();
+		
+		
+      if (categoryId == null || categoryId.isEmpty()) {
+			
+    		response.setData("");
+			response.setMessage("Please enter category Id");
+			response.setSuccess(false);
+			response.setStatus(ServerResponseStatus.FAILED);
+			
+			return response;
+		}
+		
 		
 		if (stockName == null || stockName.isEmpty()) {
 			
@@ -81,44 +125,58 @@ public class StockServiceImpl implements StockService{
 			return response;
 		}
 		
-		if (stockLocation == null  ||  stockLocation.isEmpty() ) {
+		if (brandName == null  ||  brandName.isEmpty() ) {
 			
 			response.setData("");
-			response.setMessage("Please  provide stock location");
+			response.setMessage("Please  provide brand name");
 			response.setSuccess(false);
 			response.setStatus(ServerResponseStatus.FAILED);
 			
 			return  response;
 		}
 		
+       if (modelType == null || modelType.isEmpty()) {
+			
+			response.setData("");
+			response.setMessage("Please enter model type");
+			response.setSuccess(false);
+			response.setStatus(ServerResponseStatus.FAILED);
+			
+			return response;
+		}
+		
 		try {
 			
-			Stock requestStock = stockRepo.findByStockId(stockName);
+			StockCategory category = categoryRepo.findByCategoryId(categoryId);
+			
+			if(category == null) {
+				response.setData("");
+				response.setMessage("category not found");
+				response.setSuccess(false);
+				response.setStatus(ServerResponseStatus.FAILED);
+				
+				return response;
+			}
+		
+			
+			Stock requestStock = stockRepo.findByStockName(stockName);
 			
 			if(requestStock != null) {
 				response.setData("");
 				response.setMessage("Stock already exist");
-				response.setSuccess(false);
+            	response.setSuccess(false);
 				response.setStatus(ServerResponseStatus.FAILED);
 				
 				return response;
 			}
-			
-			Stock requestStockLoc = stockRepo.findByStockLocation(stockLocation);
-			
-			if(requestStockLoc != null) {
-				response.setData("");
-				response.setMessage("Stock already exist");
-				response.setSuccess(false);
-				response.setStatus(ServerResponseStatus.FAILED);
-				
-				return response;
-			}
+		
 			
 		 stock =  new Stock();
 		 
 		 stock.setStockName(stockName);
-		 stock.setStockLocation(stockLocation);
+		 stock.setBrandName(brandName);
+		 stock.setModelType(modelType);
+		 stock.setCategoryName(category);
 		 
 		 stockRepo.save(stock);
 		 
@@ -126,8 +184,6 @@ public class StockServiceImpl implements StockService{
 			response.setMessage("Stock created successfully");
 			response.setSuccess(true);
 			response.setStatus(ServerResponseStatus.UPDATED);
-			
-			return response;
 		
 		} catch (Exception e) {
 			
@@ -136,6 +192,7 @@ public class StockServiceImpl implements StockService{
 			response.setSuccess(false);
 			response.setStatus(ServerResponseStatus.FAILED);
 			e.printStackTrace();
+			return response;
 		}
 	
 		return response;
@@ -149,7 +206,8 @@ public class StockServiceImpl implements StockService{
 		Stock stock = null;
 		
 		String stockName = request.getStockName() != null ? request.getStockName() : request.getStockName();
-		String stockLocation = request.getStockLocation() != null ? request.getStockLocation() : request.getStockLocation();
+		String brandName = request.getBrandName() != null ? request.getBrandName() : request.getBrandName();
+		String modelType = request.getModelType() != null ? request.getModelType() : request.getModelType();
 		
 		if (stockName == null) {
 			
@@ -161,10 +219,20 @@ public class StockServiceImpl implements StockService{
 			return response;
 		}
 		
-      if (stockLocation == null) {
+      if (brandName == null) {
 			
 			response.setData("");
-			response.setMessage("Please provide stock location");
+			response.setMessage("Please provide brand name");
+			response.setSuccess(false);
+			response.setStatus(ServerResponseStatus.FAILED);
+			
+			return response;
+		}
+      
+      if (modelType == null) {
+			
+			response.setData("");
+			response.setMessage("Please provide model type");
 			response.setSuccess(false);
 			response.setStatus(ServerResponseStatus.FAILED);
 			
@@ -188,8 +256,10 @@ public class StockServiceImpl implements StockService{
 			
 			if (stockName != null)
 				stock.setStockName(stockName);
-			if (stockLocation != null)
-				stock.setStockLocation(stockLocation);
+			if (brandName != null)
+				stock.setBrandName(brandName);
+			if(modelType != null)
+				stock.setModelType(modelType);
 			
 			stockRepo.save(stock);
 			
@@ -205,21 +275,32 @@ public class StockServiceImpl implements StockService{
 			response.setSuccess(false);
 			response.setStatus(ServerResponseStatus.FAILED);
 			e.printStackTrace();
+			return response;
 		}
 		
 		return response;
 	}
 
 	@Override
-	public ServerResponse assignStockToUser(String stockId, long usersId) {
+	public ServerResponse assignStockToUser(String stockId, Long usersId) {
 		
 		ServerResponse response = new ServerResponse();
 		
 		
-		if (usersId == 0 || stockId == null) {
+       if (stockId == null || stockId.isEmpty()) {
 			
 			response.setData("");
-			response.setMessage("Please provide user or stock details");
+			response.setMessage("Please provide stock details");
+			response.setSuccess(false);
+			response.setStatus(ServerResponseStatus.FAILED);
+			
+			return response;
+		}
+		
+		if (usersId == 0) {
+			
+			response.setData("");
+			response.setMessage("Please provide user details");
 			response.setSuccess(false);
 			response.setStatus(ServerResponseStatus.FAILED);
 			
@@ -251,18 +332,17 @@ public class StockServiceImpl implements StockService{
 			
 			users.getStock().add(stock);
 			
-			response.setData(stock);
-			response.setMessage("Stock assigned successfully");
+			response.setData(users);
+			response.setMessage("Stock assigned successfully to user");
 			response.setSuccess(true);
 			response.setStatus(ServerResponseStatus.OK);
-			
-			return response;
 			
 		}catch(Exception e) {
 			response.setData("");
 			response.setMessage("Failed to assign stock");
 			response.setSuccess(false);
 			response.setStatus(ServerResponseStatus.INTERNAL_SERVER_ERROR);
+			return response;
 		}
 		
 		return response;
@@ -275,7 +355,7 @@ public class StockServiceImpl implements StockService{
 		
 		if(stockId == null || stockId.isEmpty()) {
 			response.setData("");
-			response.setMessage("Stock does not exist");
+			response.setMessage(" Please enter Stock details");
 			response.setSuccess(false);
 			response.setStatus(ServerResponseStatus.FAILED);
 			
@@ -307,6 +387,7 @@ public class StockServiceImpl implements StockService{
 			response.setMessage("Failed to fetch stock");
 			response.setSuccess(false);
 			response.setStatus(ServerResponseStatus.INTERNAL_SERVER_ERROR);
+			return response;
 		}
 		
 		
@@ -320,7 +401,7 @@ public class StockServiceImpl implements StockService{
 		ServerResponse response = new ServerResponse();
 		
 		try {
-			Collection<Stock> stock = findAll();
+			Collection<Stock> stock = stockRepo.findAll();
 			
 			if (stock.size() < 1) {
 				response.setData("");
@@ -341,6 +422,7 @@ public class StockServiceImpl implements StockService{
 			response.setMessage("Failed to fetch data");
 			response.setSuccess(false);
 			response.setStatus(ServerResponseStatus.FAILED);
+			return response;
 		}
 		
 		return response;

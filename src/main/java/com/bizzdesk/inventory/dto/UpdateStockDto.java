@@ -1,13 +1,14 @@
 package com.bizzdesk.inventory.dto;
 
+
 public class UpdateStockDto {
 	
 	private String stockName;
 	
-	private String stockLocation;
-	
-	private String  stockId;
+	private String brandName;
 
+	private String modelType;
+	
 	
 	
 	public String getStockName() {
@@ -18,23 +19,21 @@ public class UpdateStockDto {
 		this.stockName = stockName;
 	}
 
-	public String getStockLocation() {
-		return stockLocation;
+	public String getBrandName() {
+		return brandName;
 	}
 
-	public void setStockLocation(String stockLocation) {
-		this.stockLocation = stockLocation;
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
 	}
 
-	public String getStockId() {
-		return stockId;
+	public String getModelType() {
+		return modelType;
 	}
 
-	public void setStockId(String stockId) {
-		this.stockId = stockId;
+	public void setModelType(String modelType) {
+		this.modelType = modelType;
 	}
+
 	
-	
-	
-
 }

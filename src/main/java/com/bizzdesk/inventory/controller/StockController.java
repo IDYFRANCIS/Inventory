@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bizzdesk.inventory.constant.ServerResponseStatus;
+import com.bizzdesk.inventory.dto.CategoryDto;
 import com.bizzdesk.inventory.dto.ServerResponse;
 import com.bizzdesk.inventory.dto.StockDto;
 import com.bizzdesk.inventory.dto.UpdateStockDto;
@@ -42,7 +43,7 @@ public class StockController {
 	 */
 	
 	@ApiOperation(value = "Create a stock", response = ServerResponse.class)
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/create-stock", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> create(@RequestHeader("Authorization")  String authorization, @RequestBody StockDto request){
 		
@@ -75,7 +76,7 @@ public class StockController {
 		ServerResponse response = new ServerResponse();
 		
 		try {
-			
+			System.out.println("ID testing");
 			response = stockService.viewAll();
 		
 		} catch (Exception e) {
@@ -100,7 +101,7 @@ public class StockController {
 	 */
 	
 	@ApiOperation(value = "Update stock", response = ServerResponse.class)
-	@RequestMapping(value = "/update/{stockId}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update-stock/{stockId}", method = RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<?> update(@RequestHeader("Authorization") String authorization, @PathVariable("stockId") String stockId, @RequestBody UpdateStockDto request){
 		
@@ -128,8 +129,8 @@ public class StockController {
 	 * @param usersId
 	 * @return
 	 */
-	
-	@RequestMapping(value = "/assignStock/{stockId}/{usersId}", method = RequestMethod.PUT)
+	@ApiOperation(value = "Assign stock to user", response = ServerResponse.class)
+	@RequestMapping(value = "/assign-stock-to-user/{stockId}/{usersId}", method = RequestMethod.PUT)
 	@ResponseBody
 	public ResponseEntity<?> assignStock(@RequestHeader("Authorization") String authorization, @PathVariable("stockId") String stockId, @PathVariable("usersId") Long usersId ){
 		
@@ -158,7 +159,7 @@ public class StockController {
 	 */
 	
 	@ApiOperation(value = "Get stock by ID", response = ServerResponse.class)
-	@RequestMapping(value = "/getStock/{stockId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/get-stock/{stockId}", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<?> getStock(@RequestHeader("Authorization") String authorization, @PathVariable("stockId") String stockId){
 		
