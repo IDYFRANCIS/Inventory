@@ -80,8 +80,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         converter.setSigningKey(SIGNING_KEY);
         return converter;
     }
-    @Primary
+    
     @Bean
+    @Primary
     public TokenStore tokenStore() {
         return new JwtTokenStore(accessTokenConverter());
     }
