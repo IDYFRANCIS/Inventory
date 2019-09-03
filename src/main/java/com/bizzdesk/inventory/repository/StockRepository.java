@@ -20,7 +20,9 @@ public interface StockRepository extends CrudRepository<Stock, Long>{
 	
 	Stock findByModelType(String modelType);
 	
-	Collection<Stock> findByusers_UsersId(long usersId);
+	Collection<Stock> findByUsers_UsersId(long usersId);
+	
+	Collection<Stock> findByCategoryName(String categoryId);
 	
 	Collection<Stock> findAll();
 

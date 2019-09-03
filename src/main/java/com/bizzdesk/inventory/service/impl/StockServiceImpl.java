@@ -92,6 +92,17 @@ public class StockServiceImpl implements StockService{
 	
 	
 	@Override
+	public Collection<Stock> findByCategory(String categoryId) {
+		
+		try {
+			return stockRepo.findByCategoryName(categoryId);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@Override
 	public ServerResponse create(StockDto request) {
 		
 		ServerResponse response = new ServerResponse();
@@ -282,7 +293,7 @@ public class StockServiceImpl implements StockService{
 	}
 
 	@Override
-	public ServerResponse assignStockToUser(String stockId, Long usersId) {
+	public ServerResponse assignStockToUser(String stockId, long usersId) {
 		
 		ServerResponse response = new ServerResponse();
 		
@@ -331,6 +342,7 @@ public class StockServiceImpl implements StockService{
 			}
 			
 			users.getStock().add(stock);
+			stock.setUsers(users);
 			
 			response.setData(users);
 			response.setMessage("Stock assigned successfully to user");
@@ -424,6 +436,53 @@ public class StockServiceImpl implements StockService{
 			response.setStatus(ServerResponseStatus.FAILED);
 			return response;
 		}
+		
+		return response;
+	}
+
+
+	@Override
+	public ServerResponse getStockByCategory(String categoryId) {
+		
+       ServerResponse response = new ServerResponse();
+		
+		if(categoryId == null || categoryId.isEmpty()) {
+			response.setData("");
+			response.setMessage(" Please enter Stock Category details");
+			response.setSuccess(false);
+			response.setStatus(ServerResponseStatus.FAILED);
+			
+			return response;
+		}
+		
+		try {
+			
+			Collection<Stock> stock = stockRepo.findByCategoryName(categoryId);
+			
+			if (stock == null) {
+				response.setData("");
+				response.setMessage("Stock under category not found");
+				response.setSuccess(false);
+				response.setStatus(ServerResponseStatus.FAILED);
+				
+				return response;
+				
+			}
+			
+			response.setData(stock);
+			response.setMessage("Stock found successfully");
+			response.setSuccess(true);
+			response.setStatus(ServerResponseStatus.OK);
+			
+		} catch (Exception e){
+			
+			response.setData("");
+			response.setMessage("Failed to fetch stock");
+			response.setSuccess(false);
+			response.setStatus(ServerResponseStatus.INTERNAL_SERVER_ERROR);
+			return response;
+		}
+		
 		
 		return response;
 	}

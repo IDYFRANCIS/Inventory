@@ -22,14 +22,18 @@ public interface StockService {
 	
 	public Stock findByModelType(String modelType);
 	
+	public Collection<Stock> findByCategory(String categoryId);
+	
 	ServerResponse create(StockDto request); 
 	
 	ServerResponse update(String stockId, UpdateStockDto request);
 	
-	ServerResponse assignStockToUser(String stockId, Long usersId);
+	ServerResponse assignStockToUser(String stockId, long usersId);
 	
 	ServerResponse getStock(String stockId);
 	
 	ServerResponse viewAll();
+	
+	ServerResponse getStockByCategory(String categoryId);
 
 }

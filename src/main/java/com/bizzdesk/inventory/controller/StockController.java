@@ -76,13 +76,42 @@ public class StockController {
 		ServerResponse response = new ServerResponse();
 		
 		try {
-			System.out.println("ID testing");
 			response = stockService.viewAll();
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.setData("An error occured while fetching stocks" + e.getMessage());
 			response.setMessage("An error occured while fetching stocks");
+	        response.setSuccess(false);
+            response.setStatus(ServerResponseStatus.FAILED);
+		}
+		
+		return new ResponseEntity<ServerResponse>(response, responseHeaders, ServerResponse.getStatus(response.getStatus()));
+
+	}
+	
+	
+	/**
+	 * GET STOCK BY CATEGORY
+	 * @param authorization
+	 * @param categoryName
+	 * @return
+	 */
+	
+	@ApiOperation(value = "Get stock by category", response = ServerResponse.class)
+    @RequestMapping(value = "/get-stock-by-category/{categoryId}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<?> getStockByCategory(@RequestHeader("Authorization") String authorization, @PathVariable("categoryId") String categoryId){
+		
+		ServerResponse response = new ServerResponse();
+		
+		try {
+			response = stockService.getStockByCategory(categoryId);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.setData("An error occured while fetching stocks by category" + e.getMessage());
+			response.setMessage("An error occured while fetching stocks by category");
 	        response.setSuccess(false);
             response.setStatus(ServerResponseStatus.FAILED);
 		}
