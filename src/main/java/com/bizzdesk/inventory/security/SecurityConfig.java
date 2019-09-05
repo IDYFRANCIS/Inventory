@@ -84,7 +84,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     
     @Bean
-    @Primary
     public TokenStore tokenStore() {
         return new JwtTokenStore(accessTokenConverter());
     }
