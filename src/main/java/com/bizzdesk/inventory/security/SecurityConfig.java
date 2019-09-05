@@ -89,8 +89,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     
     
-    @Primary
+    
     @Bean
+    @Primary
     public DefaultTokenServices tokenServices() {
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore());
