@@ -259,7 +259,7 @@ public class UsersController {
 			
 		} catch (Exception e) {
 			response.setData("An error occured => " + e.getMessage());
-			response.setMessage("Failed to update user details");
+			response.setMessage("Failed while updating user details");
 			response.setSuccess(false);
             response.setStatus(ServerResponseStatus.FAILED);
 		}
