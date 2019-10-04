@@ -3,6 +3,7 @@ package com.bizzdesk.inventory.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,9 +20,10 @@ import com.bizzdesk.inventory.service.CategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(tags = "Category Management", description = "Endpoint")
-@RequestMapping(value = "/category", produces = "application/json")
 @Controller
+@RequestMapping(value = "/category", produces = "application/json")
+@Api(tags = "Category Management", description = "Endpoint")
+//@PreAuthorize("hasAuthourity('CREATE')")
 public class CategoryController {
 
 	@Autowired

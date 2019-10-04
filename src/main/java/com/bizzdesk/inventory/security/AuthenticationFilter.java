@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -100,9 +101,34 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             serverResponse.setData(ex.getMessage());
             serverResponse.setSuccess(false);
             String jsonResponse = new ObjectMapper().writeValueAsString(serverResponse);
-            httpResponse.addHeader("Content-Type", "application/json");
+            httpResponse.addHeader("Content-Type",  "application/json");
 
             httpResponse.getWriter().print(jsonResponse);
+            
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	ServerResponse serverResponse = new ServerResponse();
+        	
+        	if (e.getMessage().contains("Access is denied")) {
+        		response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        	    serverResponse.setData("");
+        	    serverResponse.setMessage("Access is denied. You may not have the appropriate permissions to access the data");
+        	    
+        	}else {
+        		
+        		response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        		serverResponse.setData("");
+        		serverResponse.setMessage(e.getMessage());
+        		
+        	}
+        	
+        	serverResponse.setSuccess(false);
+        	String jsonResponse = new ObjectMapper().writeValueAsString(serverResponse);
+        	httpResponse.addHeader("Content-Type",  "application/json");
+        	httpResponse.getWriter().write(jsonResponse);
+        	httpResponse.getWriter().flush();
+        	httpResponse.getWriter().close();
+            
         } finally {
             httpResponse.getOutputStream()
                 .flush();

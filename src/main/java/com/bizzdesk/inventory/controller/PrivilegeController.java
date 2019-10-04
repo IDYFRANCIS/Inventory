@@ -3,6 +3,7 @@ package com.bizzdesk.inventory.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,7 +60,7 @@ public class PrivilegeController {
 	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
 	@ResponseBody
 //	@PreAuthorize("hasAuthority('UPDATE') or hasAuthority('CREATE')")
-	public ServerResponse getPrivilegeByName(@RequestHeader("Authorization") String authorization, String name){
+	public ServerResponse getPrivilegeByName(@RequestHeader("Authorization") String authorization, @PathVariable("name") String name){
 		
 		ServerResponse response = new ServerResponse();
 		
@@ -70,6 +71,7 @@ public class PrivilegeController {
 		} catch (Exception e) {
 			response.setSuccess(false);
 			response.setData("An error occured => " + e.getMessage());
+			response.setMessage("An error occured while fetching privileges");
             response.setStatus(ServerResponseStatus.FAILED);
 		}
 		return response;

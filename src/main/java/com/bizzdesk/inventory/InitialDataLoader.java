@@ -128,7 +128,7 @@ public class InitialDataLoader  implements ApplicationListener<ContextRefreshedE
 		
 		Collection<Privilege> adminPrivileges = new HashSet<>();
 		adminPrivileges.add(create);
-		//adminPrivileges.add(update);
+		adminPrivileges.add(update);
 		adminPrivileges.add(read);
 		
 		Collection<Privilege> userPrivileges = new HashSet<>();
@@ -190,7 +190,7 @@ public class InitialDataLoader  implements ApplicationListener<ContextRefreshedE
 		user.setLastName(appConstants.APP_DEFAULT_ADMIN_NAME);
 		user.setPassword(passwordEncoder.encode(appConstants.APP_ADMIN_PASSWORD));
 		user.setRole(superAdmin);
-//		user.setUserName(appConstants.APP_DEFAULT_ADMIN_NAME);
+		user.setFirstName(appConstants.APP_DEFAULT_ADMIN_NAME);
 
 		logger.info("Admin Account " + user.getEmailAddress());
 		

@@ -97,6 +97,7 @@ public class StockServiceImpl implements StockService{
 		try {
 			return stockRepo.findByCategoryName(categoryId);
 		} catch(Exception e) {
+			
 			e.printStackTrace();
 		}
 		return null;
@@ -448,7 +449,7 @@ public class StockServiceImpl implements StockService{
 		
 		if(categoryId == null || categoryId.isEmpty()) {
 			response.setData("");
-			response.setMessage(" Please enter Stock Category details");
+			response.setMessage("Please enter Stock Category details");
 			response.setSuccess(false);
 			response.setStatus(ServerResponseStatus.FAILED);
 			
@@ -461,7 +462,7 @@ public class StockServiceImpl implements StockService{
 			
 			if (stock == null) {
 				response.setData("");
-				response.setMessage("Stock under category not found");
+				response.setMessage("No stock found under this category");
 				response.setSuccess(false);
 				response.setStatus(ServerResponseStatus.FAILED);
 				
@@ -473,6 +474,7 @@ public class StockServiceImpl implements StockService{
 			response.setMessage("Stock found successfully");
 			response.setSuccess(true);
 			response.setStatus(ServerResponseStatus.OK);
+			System.out.println("this is the stock" + stock);
 			
 		} catch (Exception e){
 			
