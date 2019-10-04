@@ -202,7 +202,7 @@ public class UsersController {
 		
 		} catch (Exception e) {
 			e.printStackTrace();
-			response.setData("An error occured in user account verification" + e.getMessage());
+			response.setData("An error occured while verifying user account" + e.getMessage());
 			response.setMessage("An error occured in user account verification");
 	        response.setSuccess(false);
             response.setStatus(ServerResponseStatus.FAILED);
