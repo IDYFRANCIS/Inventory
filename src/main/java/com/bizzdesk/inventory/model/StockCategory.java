@@ -33,7 +33,7 @@ public class StockCategory implements Serializable{
 	private String categoryName;
 
 	//@JsonIgnore
-	@OneToMany(mappedBy = "categoryName", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "stockCategory", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Stock> stock;
 
 	public String getCategoryId() {

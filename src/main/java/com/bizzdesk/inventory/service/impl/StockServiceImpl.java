@@ -1,6 +1,7 @@
 package com.bizzdesk.inventory.service.impl;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import javax.transaction.Transactional;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.bizzdesk.inventory.constant.ServerResponseStatus;
 import com.bizzdesk.inventory.dto.ServerResponse;
 import com.bizzdesk.inventory.dto.StockDto;
+import com.bizzdesk.inventory.dto.StockResponseDto;
 import com.bizzdesk.inventory.dto.UpdateStockDto;
 import com.bizzdesk.inventory.model.Stock;
 import com.bizzdesk.inventory.model.StockCategory;
@@ -95,7 +97,7 @@ public class StockServiceImpl implements StockService{
 	public Collection<Stock> findByCategory(String categoryId) {
 		
 		try {
-			return stockRepo.findByCategoryName(categoryId);
+			return (Collection<Stock>) stockRepo.findByStockCategory_CategoryId(categoryId);
 		} catch(Exception e) {
 			
 			e.printStackTrace();
@@ -188,7 +190,7 @@ public class StockServiceImpl implements StockService{
 		 stock.setStockName(stockName);
 		 stock.setBrandName(brandName);
 		 stock.setModelType(modelType);
-		 stock.setCategoryName(category);
+		 stock.setStockCategory(category);
 		 
 		 stockRepo.save(stock);
 		 
@@ -458,30 +460,44 @@ public class StockServiceImpl implements StockService{
 		
 		try {
 			
-			Collection<Stock> stock = stockRepo.findByCategoryName(categoryId);
+			Collection<Stock> catStock = stockRepo.findByStockCategory_CategoryId(categoryId);
 			
-			if (stock == null) {
+			if (catStock.size() < 1) {
 				response.setData("");
 				response.setMessage("No stock found under this category");
 				response.setSuccess(false);
-				response.setStatus(ServerResponseStatus.FAILED);
+				response.setStatus(ServerResponseStatus.NO_CONTENT);
 				
 				return response;
 				
 			}
 			
-			response.setData(stock);
+			
+			Collection<StockResponseDto> dtos = new HashSet<>();
+			
+			for(Stock stocks: catStock) {
+				StockResponseDto dto = new StockResponseDto();
+				dto.setBrandName(stocks.getBrandName());
+				dto.setModelType(stocks.getModelType());
+				dto.setStockName(stocks.getStockName());
+				dto.setStockId(stocks.getStockId());
+				//dto.setCategoryName(stocks.getStockCategory());
+				dtos.add(dto);
+				
+			}
+			
+			response.setData(dtos);
 			response.setMessage("Stock found successfully");
 			response.setSuccess(true);
 			response.setStatus(ServerResponseStatus.OK);
-			System.out.println("this is the stock" + stock);
+		//	System.out.println("this is the stock" + dtos);
 			
 		} catch (Exception e){
 			
 			response.setData("");
 			response.setMessage("Failed to fetch stock");
 			response.setSuccess(false);
-			response.setStatus(ServerResponseStatus.INTERNAL_SERVER_ERROR);
+			response.setStatus(ServerResponseStatus.FAILED);
 			return response;
 		}
 		

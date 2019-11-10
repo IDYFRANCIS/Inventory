@@ -24,7 +24,7 @@ public class InventoryApplication {
     }
     
     
-    @Primary
+  //  @Primary
     @Bean
     public TokenStore tokenStore() {
         return new JwtTokenStore(accessTokenConverter());

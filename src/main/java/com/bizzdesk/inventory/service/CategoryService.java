@@ -23,5 +23,6 @@ public interface CategoryService {
 	ServerResponse viewAll();
 	
 	ServerResponse delete(String categoryId);
+
 	
 }

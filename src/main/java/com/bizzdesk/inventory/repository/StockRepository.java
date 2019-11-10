@@ -10,7 +10,7 @@ import com.bizzdesk.inventory.model.Stock;
 
 
 @Repository
-public interface StockRepository extends CrudRepository<Stock, Long>{
+public interface StockRepository extends CrudRepository<Stock, String>{
 	
 	Stock findByStockId(String stockId);
 	
@@ -22,9 +22,10 @@ public interface StockRepository extends CrudRepository<Stock, Long>{
 	
 	Collection<Stock> findByUsers_UsersId(long usersId);
 	
-	Collection<Stock> findByCategoryName(String categoryId);
+	Collection<Stock> findByStockCategory_CategoryId(String categoryId);
 	
 	Collection<Stock> findAll();
 
-	
+	//Collection<Stock> findByStockCategory(String categoryId);
+
 }
